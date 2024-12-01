@@ -15,35 +15,52 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/secondaryColor"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/tv_img_event"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/tv_img_card"
             android:layout_width="match_parent"
             android:layout_height="175dp"
             android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:contentDescription="@string/app_name"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dummy_image"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_event_name"
+            android:id="@+id/tv_name_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:textSize="12sp"
+            android:textColor="@color/white"
             android:textAlignment="center"
+            android:textSize="12sp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_img_event"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_img_card"
             tools:text="Material Name" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/tv_description_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:visibility="gone"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.5"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_bias="0.5"
+            tools:text="Player description goes here." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

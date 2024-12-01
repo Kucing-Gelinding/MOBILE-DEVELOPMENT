@@ -1,9 +1,11 @@
 package com.bangkit.cunny.ui.home
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -18,7 +20,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var drawerLayout: DrawerLayout
-
+    private lateinit var toolbar: Toolbar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +35,15 @@ class HomeFragment : Fragment() {
 
         // Setup DrawerLayout and Toolbar
         drawerLayout = binding.root.findViewById(R.id.drawer_layout)
+        toolbar = binding.root.findViewById(R.id.toolbar)
+
+        // Set up the toolbar with only hamburger icon
+        toolbar.apply {
+            setNavigationIcon(R.drawable.ic_menu)  // Replace with your menu icon
+            setNavigationOnClickListener {
+                drawerLayout.openDrawer(GravityCompat.START) // Open the drawer when icon is clicked
+            }
+        }
 
         // Setup NavigationView to handle item selection
         val navigationView: NavigationView = binding.root.findViewById(R.id.navigation_view)

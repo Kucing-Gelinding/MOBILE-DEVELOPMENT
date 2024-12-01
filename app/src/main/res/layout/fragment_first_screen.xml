@@ -7,20 +7,17 @@
     tools:context=".ui.onboarding.screens.FirstScreen">
 
     <TextView
-        android:id="@+id/cunnySplash"
+        android:id="@+id/cunny"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
+        android:layout_marginTop="256dp"
         android:fontFamily="@font/fredoka_one"
-        android:text="CUNNY"
+        android:text="@string/cunny"
         android:textColor="@color/primaryColor"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="64sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
         android:id="@+id/dots_indicator"
@@ -62,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.bangkit.cunny.ui.customview.ButtonWelcomeCustomEdit
         android:id="@+id/buttonContinue"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -71,7 +68,7 @@
         android:layout_marginBottom="8dp"
         android:elevation="4dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Continue"
+        android:text="@string/continueBtn"
         app:layout_constraintBottom_toTopOf="@+id/skipTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

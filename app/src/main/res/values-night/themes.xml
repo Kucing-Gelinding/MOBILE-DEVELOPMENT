@@ -18,4 +18,8 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+
+    <style name="Background_card">
+        <item name="android:background">@drawable/cardview_material</item> <!-- Tetap menggunakan drawable -->
+    </style>
 </resources>

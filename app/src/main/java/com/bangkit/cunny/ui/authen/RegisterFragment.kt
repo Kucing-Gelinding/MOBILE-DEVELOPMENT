@@ -1,5 +1,7 @@
 package com.bangkit.cunny.ui.authen
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,24 +10,65 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bangkit.cunny.R
+import com.bangkit.cunny.databinding.FragmentRegisterBinding
 
 
 class RegisterFragment : Fragment() {
+
+    private lateinit var binding: FragmentRegisterBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_register, container, false)
+        // Gunakan ViewBinding untuk menghubungkan layout
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
-        // Find the button and set a click listener
-        val buttonRegister = view.findViewById<Button>(R.id.buttonRegister)
-        buttonRegister.setOnClickListener {
-            // Navigate to the login fragment
+        // Set click listener pada tombol register
+        binding.registerButton.setOnClickListener {
+            // Navigate ke login fragment
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
 
-        return view
+        playAnimation()
+
+        return binding.root
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.cunny, View.TRANSLATION_Y, 60f, -60f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
+        val nameTextView =
+            ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
+        val edRegisterName =
+            ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(100)
+        val emailTextView =
+            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
+        val edRegisterEmail =
+            ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(100)
+        val passwordTextView =
+            ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
+        val edRegisterPassword =
+            ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(100)
+        val signup = ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(100)
+
+        AnimatorSet().apply {
+            playSequentially(
+                title,
+                nameTextView,
+                edRegisterName,
+                emailTextView,
+                edRegisterEmail,
+                passwordTextView,
+                edRegisterPassword,
+                signup
+            )
+            startDelay = 100
+        }.start()
     }
 }
