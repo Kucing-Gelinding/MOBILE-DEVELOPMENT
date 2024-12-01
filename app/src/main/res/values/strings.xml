@@ -18,6 +18,7 @@
     <string name="enter_password">Please enter your Password.</string>
     <string name="password_8digit">Password must be 8 characters.</string>
     <string name="continueBtn">Continue</string>
+    <string name="practice">Aha, finally you are here, you can scan any fruit with the camera down below, after that, we will explain it to you!</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -67,6 +68,63 @@
         <item>@drawable/dummy_image4</item>
         <item>@drawable/dummy_image5</item>
     </integer-array>
+
+    <string-array name="materiList">
+        <item>
+            Chapter 1 : Apa itu AI (Artificial Intelligence)?
+            Chapter 2 : Apa itu Machine Learning (ML)?
+            Chapter 3 : Apa itu Deep Learning (DL)?
+            Chapter 4 : Hubungan Antara AI, ML, dan DL
+            Chapter 5 : Kenapa AI, ML, dan DL Penting?
+            Chapter 6 : Bagaimana Kamu Bisa Mulai?
+        </item>
+        <item>
+            Chapter 1 : Apa itu Image Classification?
+            Chapter 2 : Cara Kerja Image Classification
+            Chapter 3 : Apa itu CNN (Convolutional Neural Network)?
+            Chapter 4 : Langkah-langkah untuk Melakukan Image Classification
+            Chapter 5 : Contoh Penerapan Image Classification
+            Chapter 6 : Tantangan dalam Image Classification
+            Kesimpulan
+        </item>
+        <item>
+            Chapter 1 : Apa itu Data dalam Machine Learning?
+            Chapter 2 : Apa itu Supervised Data?
+            Chapter 3 : Apa itu Unsupervised Data?
+            Chapter 4 : Perbedaan Supervised vs Unsupervised Data
+            Chapter 5 : Hubungan Antara Keduanya
+            Kesimpulan
+        </item>
+        <item>
+            Chapter 1 : Tools untuk Pengembangan dan Kolaborasi
+            Chapter 2 : Bahasa Pemrograman
+            Chapter 3 : Framework dan Libraries Machine Learning
+            Chapter 4 : Data Preprocessing Tools
+            Chapter 5 : Tools untuk Visualisasi Data
+            Chapter 6 : Model Deployment Tools
+            Chapter 7 : Cloud Services
+            Kesimpulan
+        </item>
+        <item>
+            Chapter 1 : Coming Soon
+            Chapter 2 : Coming Soon
+            Chapter 3 : Coming Soon
+            Chapter 4 : Coming Soon
+            Chapter 5 : Coming Soon
+            Chapter 6 : Coming Soon
+            Chapter 7 : Coming Soon
+            Kesimpulan
+        </item>
+    </string-array>
+
+    <string-array name="duration">
+        <item>Duration : 5 minute</item>
+        <item>Duration : 5 minute</item>
+        <item>Duration : 5 minute</item>
+        <item>Duration : 5 minute</item>
+        <item>Duration : 5 minute</item>
+    </string-array>
+
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -88,4 +146,8 @@
     <string name="name_cannot_be_empty">Name cannot be empty.</string>
     <string name="invalid_name">Invalid format.</string>
     <string name="title_signup_page">Complete Your Registration.</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="start_practice">Start Practice</string>
 </resources>

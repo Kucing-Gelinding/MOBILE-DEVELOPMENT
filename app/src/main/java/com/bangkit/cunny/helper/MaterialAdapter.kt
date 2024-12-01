@@ -19,6 +19,12 @@ class MaterialAdapter(private val listMaterial: ArrayList<Material>) : RecyclerV
         this.onItemClickCallback = onItemClickCallback
     }
 
+    fun updateData(newList: ArrayList<Material>) {
+        listMaterial.clear()
+        listMaterial.addAll(newList)
+        notifyDataSetChanged()
+    }
+
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.tv_name_card)
         val imgPhoto: ImageView = itemView.findViewById(R.id.tv_img_card)

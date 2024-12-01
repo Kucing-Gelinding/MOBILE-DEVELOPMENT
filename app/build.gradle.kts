@@ -56,7 +56,13 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //library dots indicator untuk onboarding viewpager2
-    implementation("com.tbuonomo:dotsindicator:5.0")
+    implementation(libs.dotsindicator)
+
+    //retrofit
+    implementation (libs.retrofit)
+    implementation (libs.retrofit2.converter.gson)
+    implementation (libs.logging.interceptor)
+
 
 
 }
