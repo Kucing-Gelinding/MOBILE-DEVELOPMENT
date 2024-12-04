@@ -3,6 +3,7 @@ package com.bangkit.cunny.ui.onboarding.screens
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.bangkit.cunny.R
 import com.bangkit.cunny.databinding.FragmentFirstScreenBinding
 import com.bangkit.cunny.databinding.FragmentSecondScreenBinding
+import com.bangkit.cunny.ui.authen.RegisterActivity
 
 
 class SecondScreen : Fragment() {
@@ -28,7 +30,10 @@ class SecondScreen : Fragment() {
 
         // Set click listener pada buttonContinue
         binding.buttonContinue.setOnClickListener {
-            findNavController().navigate(R.id.action_viewPagerFragment_to_create_profile_fragment)
+            val intent = Intent(requireContext(), RegisterActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+
             onBoardingFinished()
         }
 

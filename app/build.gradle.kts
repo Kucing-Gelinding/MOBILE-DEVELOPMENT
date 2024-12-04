@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -51,6 +52,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.annotation)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -63,6 +65,12 @@ dependencies {
     implementation (libs.retrofit2.converter.gson)
     implementation (libs.logging.interceptor)
 
-
+    // Firebase Auth
+    implementation ("com.google.firebase:firebase-auth-ktx:23.1.0")
+    implementation ("com.google.android.gms:play-services-auth:21.2.0")
+    // Credential Manager
+    implementation ("androidx.credentials:credentials:1.3.0")
+    implementation ("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation(libs.googleid)
 
 }

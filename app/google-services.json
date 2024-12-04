@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "577654610975",
+    "project_id": "cunny-e1337",
+    "storage_bucket": "cunny-e1337.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577654610975:android:bc74f538f751201f1dc92a",
+        "android_client_info": {
+          "package_name": "com.bangkit.cunny"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577654610975-6nrvsn6noa5gj9fppnt3otfq309g1t2e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bangkit.cunny",
+            "certificate_hash": "12a2f9dd2ce66e6d52d75c3b8bedd727aada8c9d"
+          }
+        },
+        {
+          "client_id": "577654610975-nr2stng7ic45ke6egh428qjd0d3001ro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWORHatUNWH12upQPxf9jE3xjzD-IkBWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577654610975-nr2stng7ic45ke6egh428qjd0d3001ro.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
