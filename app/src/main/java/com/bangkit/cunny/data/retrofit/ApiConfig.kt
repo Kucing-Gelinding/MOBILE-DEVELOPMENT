@@ -14,7 +14,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://cunny-contents-api-v1.et.r.appspot.com/")
+                .baseUrl("key=null")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
