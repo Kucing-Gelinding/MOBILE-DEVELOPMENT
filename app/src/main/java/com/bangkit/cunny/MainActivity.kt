@@ -38,13 +38,25 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        auth = Firebase.auth
+        // Listener untuk memantau perubahan destinasi
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.navigation_home ||
+                destination.id == R.id.navigation_materials ||
+                destination.id == R.id.navigation_favorite) {
+                navView.visibility = View.VISIBLE
+            } else {
+                navView.visibility = View.GONE
+            }
+        }
+
+
+/*      auth = Firebase.auth
         val firebaseUser = auth.currentUser
         if (firebaseUser == null) {
             // Not signed in, launch the Login activity
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
             return
-        }
+        }*/
     }
 }

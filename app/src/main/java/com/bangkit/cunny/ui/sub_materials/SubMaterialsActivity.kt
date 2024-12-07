@@ -2,41 +2,82 @@ package com.bangkit.cunny.ui.sub_materials
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bangkit.cunny.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.cunny.data.response.LearningMaterial
+import com.bangkit.cunny.databinding.ActivitySubMaterialsBinding
+import com.bangkit.cunny.di.Injection
+import com.bangkit.cunny.helper.SubMaterialAdapter
+import com.bangkit.cunny.ui.materials.MaterialViewModel
+import com.bangkit.cunny.ui.materials.MaterialViewModelFactory
 import com.bangkit.cunny.ui.materials_detail.DetailActivity
 
 class SubMaterialsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySubMaterialsBinding
+    private lateinit var materialViewModel: MaterialViewModel
+    private val subMaterialAdapter = SubMaterialAdapter(ArrayList())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sub_materials)
+        binding = ActivitySubMaterialsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.hide()
-        val playerPost = intent.getIntExtra("material_position", 0)
-        val dataNames = resources.getStringArray(R.array.materiList)
-        val dataDescriptions = resources.getStringArray(R.array.duration)
-        val dataPhotos = resources.obtainTypedArray(R.array.data_photo)
 
-        val tvImageView: ImageView = findViewById(R.id.tv_img)
-        tvImageView.setImageResource(dataPhotos.getResourceId(playerPost, -1))
+        // Inisialisasi ViewModel
+        val factory = MaterialViewModelFactory(Injection.provideRepository(this))
+        materialViewModel = ViewModelProvider(this, factory)[MaterialViewModel::class.java]
 
-        val tvPlayerName: TextView = findViewById(R.id.tv_name)
-        tvPlayerName.text = dataNames[playerPost]
+        // Setup RecyclerView
+        binding.rvChapterName.layoutManager = LinearLayoutManager(this)
+        binding.rvChapterName.adapter = subMaterialAdapter
 
-        val tvPlayerDescription: TextView = findViewById(R.id.tv_duration)
-        tvPlayerDescription.text = dataDescriptions[playerPost]
-
-        // Menambahkan OnClickListener pada tv_name
-        tvPlayerName.setOnClickListener {
-            val intent = Intent(this, DetailActivity::class.java).apply {
-                putExtra("material_position", playerPost)
+        // Set the item click callback
+        subMaterialAdapter.setOnItemClickCallback(object : SubMaterialAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: LearningMaterial, position: Int) {
+                val intent = Intent(this@SubMaterialsActivity, DetailActivity::class.java).apply {
+                    putExtra("material_position", position)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
+        })
+
+        // Observasi LiveData dari ViewModel
+        observeViewModel()
+
+        // Fetch data from API
+        materialViewModel.fetchMaterials()
+    }
+
+    private fun observeViewModel() {
+        materialViewModel.materials.observe(this) { response ->
+            response?.learningMaterials?.let { materials ->
+                if (materials.isEmpty()) {
+                    Toast.makeText(this, "No materials available", Toast.LENGTH_SHORT).show()
+                } else {
+                    updateMaterialList(materials)
+                }
+            } ?: run {
+                Toast.makeText(this, "No materials available", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        // Recycle typed array to avoid memory leaks
-        dataPhotos.recycle()
+        materialViewModel.isLoading.observe(this) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        materialViewModel.error.observe(this) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun updateMaterialList(materials: List<LearningMaterial>) {
+        subMaterialAdapter.updateData(ArrayList(materials))
     }
 }

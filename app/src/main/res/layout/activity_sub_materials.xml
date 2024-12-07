@@ -8,6 +8,17 @@
     android:background="@color/secondaryColor"
     tools:context=".ui.sub_materials.SubMaterialsActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -39,6 +50,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             style="@style/Background_card"
@@ -52,9 +64,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-
-            <TextView
-                android:id="@+id/tv_name"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChapterName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -69,34 +80,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Chapter 1 Intoduction AI" />
 
-            <TextView
-                android:id="@+id/tv_duration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name"
-                tools:text="Duration : 15 minute" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bottomnav_shape"
-            android:elevation="8dp"
-            app:labelVisibilityMode="unlabeled"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/bottom_nav_menu" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

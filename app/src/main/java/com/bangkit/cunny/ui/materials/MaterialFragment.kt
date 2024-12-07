@@ -1,5 +1,6 @@
 package com.bangkit.cunny.ui.materials
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.cunny.R
-import com.bangkit.cunny.data.Material
-import com.bangkit.cunny.data.response.LearningMaterials
+import com.bangkit.cunny.data.response.LearningMaterial
 import com.bangkit.cunny.databinding.FragmentMaterialBinding
 import com.bangkit.cunny.di.Injection
 import com.bangkit.cunny.helper.MaterialAdapter
+import com.bangkit.cunny.ui.sub_materials.SubMaterialsActivity
 
 class MaterialFragment : Fragment() {
     private var _binding: FragmentMaterialBinding? = null
@@ -36,10 +36,21 @@ class MaterialFragment : Fragment() {
         binding.rvMaterial.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMaterial.adapter = materialAdapter
 
+        // Set the item click callback
+        materialAdapter.setOnItemClickCallback(object : MaterialAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: LearningMaterial, position: Int) {
+                // Handle item click (pass data or position)
+                val intent = Intent(requireContext(), SubMaterialsActivity::class.java).apply {
+                    putExtra("material_position", position)
+                }
+                startActivity(intent)
+            }
+        })
+
         // Observasi LiveData dari ViewModel
         observeViewModel()
 
-        // Fetch data dari API
+        // Fetch data from API
         materialViewModel.fetchMaterials()
 
         return binding.root
@@ -48,7 +59,13 @@ class MaterialFragment : Fragment() {
     private fun observeViewModel() {
         materialViewModel.materials.observe(viewLifecycleOwner) { response ->
             response?.learningMaterials?.let { materials ->
-                updateMaterialList(materials)
+                if (materials.isEmpty()) {
+                    Toast.makeText(requireContext(), "No materials available", Toast.LENGTH_SHORT).show()
+                } else {
+                    updateMaterialList(materials)
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "No materials available", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -63,17 +80,23 @@ class MaterialFragment : Fragment() {
         }
     }
 
-    private fun updateMaterialList(materials: LearningMaterials) {
-        // Menangani subMaterials jika ada
-        val materialList = materials.subMaterials?.map { subMaterial ->
-            Material(
-                name = materials.title ?: "No Title",
-                description = materials.description ?: "No Description",
-                photo = R.drawable.ic_place_holder // Ganti dengan placeholder image
-            )
-        } ?: listOf()  // Menangani kondisi jika subMaterials null
-        materialAdapter.updateData(ArrayList(materialList))
+    private fun updateMaterialList(materials: List<LearningMaterial>) {
+/*        val materialList = materials.flatMap { material ->
+            // Flattening the subMaterials, which is a list of lists of strings
+            material.subMaterials?.map { subMaterialList ->
+                // Each subMaterialList is a list of strings, you can choose how to handle it
+                // Here, we're just passing the title and description to the adapter
+                LearningMaterial(
+                    title = material.title ?: "No Title",
+                    description = material.description ?: "No Description",
+                    learningImagePath = material.learningImagePath
+                )
+            } ?: emptyList()
+        }*/
+
+        materialAdapter.updateData(ArrayList(materials))
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
