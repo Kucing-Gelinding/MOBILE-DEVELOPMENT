@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.cunny.data.model.LearningMaterialModel
+import com.bangkit.cunny.data.model.SubMaterialModel
 import com.bangkit.cunny.data.response.LearningMaterial
 import com.bangkit.cunny.databinding.ActivitySubMaterialsBinding
 import com.bangkit.cunny.di.Injection
@@ -14,6 +16,7 @@ import com.bangkit.cunny.helper.SubMaterialAdapter
 import com.bangkit.cunny.ui.materials.MaterialViewModel
 import com.bangkit.cunny.ui.materials.MaterialViewModelFactory
 import com.bangkit.cunny.ui.materials_detail.DetailActivity
+import com.bumptech.glide.Glide
 
 class SubMaterialsActivity : AppCompatActivity() {
 
@@ -28,6 +31,14 @@ class SubMaterialsActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        val myObject = intent.getParcelableExtra<LearningMaterialModel>("SubMaterial")
+        myObject?.let {
+            Glide.with(this@SubMaterialsActivity)
+                .load(myObject.learningImagePath)
+                .into(binding.tvImg)
+            updateMaterialList(myObject.subMaterial)
+        }
+
         // Inisialisasi ViewModel
         val factory = MaterialViewModelFactory(Injection.provideRepository(this))
         materialViewModel = ViewModelProvider(this, factory)[MaterialViewModel::class.java]
@@ -36,25 +47,28 @@ class SubMaterialsActivity : AppCompatActivity() {
         binding.rvChapterName.layoutManager = LinearLayoutManager(this)
         binding.rvChapterName.adapter = subMaterialAdapter
 
+
         // Set the item click callback
         subMaterialAdapter.setOnItemClickCallback(object : SubMaterialAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: LearningMaterial, position: Int) {
+            override fun onItemClicked(data: SubMaterialModel, position: Int) {
                 val intent = Intent(this@SubMaterialsActivity, DetailActivity::class.java).apply {
-                    putExtra("material_position", position)
+                    putExtra("MaterialDetail", data)
                 }
                 startActivity(intent)
             }
         })
 
+
+
         // Observasi LiveData dari ViewModel
-        observeViewModel()
+        //observeViewModel()
 
         // Fetch data from API
-        materialViewModel.fetchMaterials()
+        //materialViewModel.fetchMaterials()
     }
 
     private fun observeViewModel() {
-        materialViewModel.materials.observe(this) { response ->
+        /*materialViewModel.materials.observe(this) { response ->
             response?.learningMaterials?.let { materials ->
                 if (materials.isEmpty()) {
                     Toast.makeText(this, "No materials available", Toast.LENGTH_SHORT).show()
@@ -74,10 +88,10 @@ class SubMaterialsActivity : AppCompatActivity() {
             errorMessage?.let {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
-        }
+        }*/
     }
 
-    private fun updateMaterialList(materials: List<LearningMaterial>) {
+    private fun updateMaterialList(materials: List<SubMaterialModel>) {
         subMaterialAdapter.updateData(ArrayList(materials))
     }
 }

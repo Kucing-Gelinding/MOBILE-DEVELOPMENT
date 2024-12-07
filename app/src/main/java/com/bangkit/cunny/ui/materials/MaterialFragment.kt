@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.cunny.data.model.LearningMaterialModel
+import com.bangkit.cunny.data.model.SubMaterialModel
 import com.bangkit.cunny.data.response.LearningMaterial
 import com.bangkit.cunny.databinding.FragmentMaterialBinding
 import com.bangkit.cunny.di.Injection
@@ -38,10 +40,10 @@ class MaterialFragment : Fragment() {
 
         // Set the item click callback
         materialAdapter.setOnItemClickCallback(object : MaterialAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: LearningMaterial, position: Int) {
+            override fun onItemClicked(data: LearningMaterialModel, position: Int) {
                 // Handle item click (pass data or position)
                 val intent = Intent(requireContext(), SubMaterialsActivity::class.java).apply {
-                    putExtra("material_position", position)
+                    putExtra("SubMaterial", data)
                 }
                 startActivity(intent)
             }
@@ -86,7 +88,7 @@ class MaterialFragment : Fragment() {
             material.subMaterials?.map { subMaterialList ->
                 // Each subMaterialList is a list of strings, you can choose how to handle it
                 // Here, we're just passing the title and description to the adapter
-                LearningMaterial(
+                LearningMaterialModel(
                     title = material.title ?: "No Title",
                     description = material.description ?: "No Description",
                     learningImagePath = material.learningImagePath
@@ -94,7 +96,16 @@ class MaterialFragment : Fragment() {
             } ?: emptyList()
         }*/
 
-        materialAdapter.updateData(ArrayList(materials))
+        val material: MutableList<LearningMaterialModel> = ArrayList()
+        materials.forEach { data ->
+            val subMaterial: MutableList<SubMaterialModel> = ArrayList()
+            for((i, v) in data.subMaterials!!.withIndex()){
+                subMaterial.add(SubMaterialModel(i, v!!.get(0),data.subBodyMaterials!!.get(i)!!.get(0), data.learningImagePath))
+            }
+            material.add(LearningMaterialModel(data.id, data.title, data.description, subMaterial, data.learningImagePath))
+        }
+
+        materialAdapter.updateData(ArrayList(material))
     }
 
 

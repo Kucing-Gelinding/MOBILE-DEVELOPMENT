@@ -20,17 +20,18 @@ data class LearningMaterial(
 	val subBodyMaterials: List<List<String?>?>? = null,
 
 	@field:SerializedName("description")
-	val description: String? = null,
+	val description: String = "",
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String = "",
 
 	@field:SerializedName("title")
-	val title: String? = null,
+	val title: String = "",
 
 	@field:SerializedName("sub_materials")
 	val subMaterials: List<List<String?>?>? = null,
 
 	@field:SerializedName("learning_image_path")
-	val learningImagePath: String? = null
+	val learningImagePath: String = ""
 )
+

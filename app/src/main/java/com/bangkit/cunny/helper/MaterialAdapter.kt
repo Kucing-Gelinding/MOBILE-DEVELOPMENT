@@ -1,27 +1,24 @@
 package com.bangkit.cunny.helper
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.cunny.R
-import com.bangkit.cunny.data.Material
-import com.bangkit.cunny.data.response.LearningMaterial
-import com.bangkit.cunny.ui.materials_detail.DetailActivity
+import com.bangkit.cunny.data.model.LearningMaterialModel
+import com.bumptech.glide.Glide
 
-class MaterialAdapter(private val listMaterial: ArrayList<LearningMaterial>) : RecyclerView.Adapter<MaterialAdapter.ListViewHolder>() {
+class MaterialAdapter(private val listMaterial: ArrayList<LearningMaterialModel>) : RecyclerView.Adapter<MaterialAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun updateData(newList: ArrayList<LearningMaterial>) {
+    fun updateData(newList: ArrayList<LearningMaterialModel>) {
         Log.d("MaterialAdapter", "Updating data: ${newList.size} items")
         listMaterial.clear()
         listMaterial.addAll(newList)
@@ -44,7 +41,10 @@ class MaterialAdapter(private val listMaterial: ArrayList<LearningMaterial>) : R
         holder.tvName.text = material.title
         holder.tvDescription.text = material.description
 
-        holder.imgPhoto.setImageResource(R.drawable.ic_place_holder)
+        Glide.with(holder.itemView.context)
+            .load(material.learningImagePath)
+            .into(holder.imgPhoto)
+        //holder.imgPhoto.setImageResource(R.drawable.ic_place_holder)
 
         // Optional: Add click listener for the entire item (if you want to keep that functionality)
         holder.itemView.setOnClickListener {
@@ -55,6 +55,6 @@ class MaterialAdapter(private val listMaterial: ArrayList<LearningMaterial>) : R
     override fun getItemCount(): Int = listMaterial.size
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: LearningMaterial, position: Int)
+        fun onItemClicked(data: LearningMaterialModel, position: Int)
     }
 }

@@ -4,8 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.cunny.R
+import com.bangkit.cunny.data.model.LearningMaterialModel
+import com.bangkit.cunny.data.model.SubMaterialModel
 import com.bangkit.cunny.databinding.ActivityDetailBinding
 import com.bangkit.cunny.ui.practice.PracticeActivity
+import com.bumptech.glide.Glide
 
 class DetailActivity : AppCompatActivity() {
 
@@ -20,7 +23,21 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        // Ambil data dari Intent
+        val myObject = intent.getParcelableExtra<SubMaterialModel>("MaterialDetail")
+        myObject?.let {
+            Glide.with(this@DetailActivity)
+                .load(myObject.learningImagePath)
+                .into(binding.tvImg)
+            binding.tvName.text = myObject.subMaterial
+            binding.tvDescription.text = myObject.subBodyMaterial
+        }
+
+        binding.buttonStartPractice.setOnClickListener {
+            val intent = Intent(this, PracticeActivity::class.java)
+            // Tambahkan data jika diperlukan untuk diteruskan ke PracticeActivity
+            startActivity(intent)
+        }
+/*        // Ambil data dari Intent
         val playerPost = intent.getIntExtra("material_position", 0)
         val dataNames = resources.getStringArray(R.array.data_name)
         val dataDescriptions = resources.getStringArray(R.array.data_description)
@@ -39,6 +56,6 @@ class DetailActivity : AppCompatActivity() {
         }
 
         // Recycle typed array untuk menghindari memory leak
-        dataPhotos.recycle()
+        dataPhotos.recycle()*/
     }
 }
