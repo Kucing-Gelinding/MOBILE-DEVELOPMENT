@@ -83,18 +83,7 @@ class MaterialFragment : Fragment() {
     }
 
     private fun updateMaterialList(materials: List<LearningMaterial>) {
-        /*        val materialList = materials.flatMap { material ->
-                    // Flattening the subMaterials, which is a list of lists of strings
-                    material.subMaterials?.map { subMaterialList ->
-                        // Each subMaterialList is a list of strings, you can choose how to handle it
-                        // Here, we're just passing the title and description to the adapter
-                        LearningMaterialModel(
-                            title = material.title ?: "No Title",
-                            description = material.description ?: "No Description",
-                            learningImagePath = material.learningImagePath
-                        )
-                    } ?: emptyList()
-                }*/
+
 
         val material: MutableList<LearningMaterialModel> = ArrayList()
         materials.forEach { data ->

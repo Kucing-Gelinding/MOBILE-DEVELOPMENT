@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LearningMaterialModel(
-	val id: String,
+	val id: Int = 0,
 	val title: String,
 	val description: String,
 	val subMaterial: List<SubMaterialModel>,

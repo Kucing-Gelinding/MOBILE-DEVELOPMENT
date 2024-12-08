@@ -1,51 +1,48 @@
-package com.bangkit.cunny.ui.home
+package com.bangkit.cunny.ui.bookmark
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.cunny.data.model.LearningMaterialModel
-import com.bangkit.cunny.databinding.FragmentHomeBinding
+import com.bangkit.cunny.databinding.FragmentBookmarkBinding
 import com.bangkit.cunny.helper.BookmarkAdapter
-import com.bangkit.cunny.ui.bookmark.BookmarkViewModel
-import com.bangkit.cunny.ui.profile.ProfileActivity
 import com.bangkit.cunny.ui.sub_materials.SubMaterialsActivity
 
-class HomeFragment : Fragment() {
+class BookmarkFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentBookmarkBinding? = null
     private val binding get() = _binding!!
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> get() = _error
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentBookmarkBinding.inflate(inflater, container, false)
 
         val viewModel = ViewModelProvider(this)[BookmarkViewModel::class.java]
         val adapter = BookmarkAdapter() // Buat adapter untuk menampilkan data
 
-        // Set an onClick listener for a button (you can change it to any view component)
-        binding.profileIcon.setOnClickListener {
-            // Intent to open ProfileActivity
-            val intent = Intent(activity, ProfileActivity::class.java)
-            startActivity(intent)
-        }
+        binding.rvBookmark.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvBookmark.adapter = adapter
 
         // Observe isLoading LiveData to show/hide ProgressBar
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
-
-        binding.rvBookmark.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvBookmark.adapter = adapter
 
         // Observe bookmarks data and update UI accordingly
         viewModel.bookmarks.observe(viewLifecycleOwner) { bookmarks ->
@@ -78,6 +75,7 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

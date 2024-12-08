@@ -1,12 +1,15 @@
-package com.bangkit.cunny.ui.home
+package com.bangkit.cunny.ui.bookmark
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.bangkit.cunny.data.database.BookmarkModel
 import com.bangkit.cunny.data.database.BookmarkRoomDatabase
 
-class HomeViewModel : ViewModel() {
+class BookmarkViewModel(application: Application) : AndroidViewModel(application) {
+    private val bookmarkDao = BookmarkRoomDatabase.getDatabase(application).bookmarkDao()
+    val bookmarks: LiveData<List<BookmarkModel>> = bookmarkDao.getAllBookmarks()
 
     // LiveData to observe loading state
     private val _isLoading = MutableLiveData<Boolean>()

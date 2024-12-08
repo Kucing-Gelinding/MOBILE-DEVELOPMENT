@@ -34,6 +34,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginTop="32dp"
+            android:padding="2dp"
             android:src="@drawable/profile_img"
             android:scaleType="centerCrop"
             app:strokeWidth="2dp"

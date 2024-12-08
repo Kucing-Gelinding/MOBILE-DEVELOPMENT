@@ -2,14 +2,15 @@ package com.bangkit.cunny.ui.sub_materials
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.cunny.data.database.BookmarkDao
+import com.bangkit.cunny.data.database.BookmarkModel
+import com.bangkit.cunny.data.database.BookmarkRoomDatabase
 import com.bangkit.cunny.data.model.LearningMaterialModel
 import com.bangkit.cunny.data.model.SubMaterialModel
-import com.bangkit.cunny.data.response.LearningMaterial
 import com.bangkit.cunny.databinding.ActivitySubMaterialsBinding
 import com.bangkit.cunny.di.Injection
 import com.bangkit.cunny.helper.SubMaterialAdapter
@@ -23,6 +24,7 @@ class SubMaterialsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySubMaterialsBinding
     private lateinit var materialViewModel: MaterialViewModel
     private val subMaterialAdapter = SubMaterialAdapter(ArrayList())
+    private lateinit var bookmarkDao: BookmarkDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class SubMaterialsActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val myObject = intent.getParcelableExtra<LearningMaterialModel>("SubMaterial")
+
         myObject?.let {
             Glide.with(this@SubMaterialsActivity)
                 .load(myObject.learningImagePath)
@@ -58,37 +61,46 @@ class SubMaterialsActivity : AppCompatActivity() {
             }
         })
 
+        val database = BookmarkRoomDatabase.getDatabase(this)
+        bookmarkDao = database.bookmarkDao()
 
-
-        // Observasi LiveData dari ViewModel
-        //observeViewModel()
-
-        // Fetch data from API
-        //materialViewModel.fetchMaterials()
-    }
-
-    private fun observeViewModel() {
-        /*materialViewModel.materials.observe(this) { response ->
-            response?.learningMaterials?.let { materials ->
-                if (materials.isEmpty()) {
-                    Toast.makeText(this, "No materials available", Toast.LENGTH_SHORT).show()
-                } else {
-                    updateMaterialList(materials)
+        // Cek status bookmark dari database
+        myObject?.let {
+            Thread {
+                val existingBookmark = bookmarkDao.getBookmarkById(it.id)
+                runOnUiThread {
+                    binding.btnBookmark.isChecked = existingBookmark != null
                 }
-            } ?: run {
-                Toast.makeText(this, "No materials available", Toast.LENGTH_SHORT).show()
+            }.start()
+        }
+
+
+        // Set listener untuk toggle bookmark
+        binding.btnBookmark.setOnCheckedChangeListener { _, isChecked ->
+            myObject?.let {
+                val bookmark = BookmarkModel(
+                    id = it.id,
+                    title = it.title,
+                    description = it.description,
+                    subMaterials = it.subMaterial,
+                    learningImagePath = it.learningImagePath
+                )
+
+                if (isChecked) {
+                    Thread { bookmarkDao.insert(bookmark) }.start()
+                    Toast.makeText(this, "Added to Bookmark", Toast.LENGTH_SHORT).show()
+                } else {
+                    Thread {
+                        val existingBookmark = bookmarkDao.getBookmarkById(bookmark.id)
+                        if (existingBookmark != null) {
+                            bookmarkDao.delete(existingBookmark)
+                        }
+                    }.start()
+                    Toast.makeText(this, "Removed from Bookmark", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
-        materialViewModel.isLoading.observe(this) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-        }
-
-        materialViewModel.error.observe(this) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            }
-        }*/
     }
 
     private fun updateMaterialList(materials: List<SubMaterialModel>) {

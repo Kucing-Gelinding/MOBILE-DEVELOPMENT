@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.cunny.R
 import com.bangkit.cunny.databinding.ActivityPracticeBinding
+import com.bangkit.cunny.utils.getImageUri
 
 class PracticeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPracticeBinding

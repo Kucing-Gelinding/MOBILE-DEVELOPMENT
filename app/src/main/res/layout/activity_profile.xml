@@ -27,6 +27,7 @@
             android:layout_marginTop="32dp"
             android:src="@drawable/profile_img"
             android:scaleType="centerCrop"
+            android:padding="2dp"
             app:strokeWidth="2dp"
             app:strokeColor="@color/tertiaryColor"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.RoundedFull"

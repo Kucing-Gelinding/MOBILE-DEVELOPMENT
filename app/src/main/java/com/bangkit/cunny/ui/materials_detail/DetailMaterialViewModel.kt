@@ -21,25 +21,4 @@ class DetailMaterialViewModel (private val repository: MaterialsRepository) : Vi
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
 
-    private val _selectedMaterial = MutableLiveData<LearningMaterial?>()
-    val selectedMaterial: LiveData<LearningMaterial?> get() = _selectedMaterial
-
-    fun fetchMaterialById(id: String) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            try {
-                val response = repository.getMaterials()
-                val material = response.learningMaterials?.find { it.id == id }
-                if (material != null) {
-                    _selectedMaterial.value = material
-                } else {
-                    _error.value = "Material not found"
-                }
-            } catch (e: Exception) {
-                _error.value = e.message ?: "An error occurred"
-            } finally {
-                _isLoading.value = false
-            }
-        }
-    }
 }

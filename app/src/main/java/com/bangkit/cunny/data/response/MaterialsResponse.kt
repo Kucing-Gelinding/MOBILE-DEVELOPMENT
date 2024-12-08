@@ -23,7 +23,7 @@ data class LearningMaterial(
 	val description: String = "",
 
 	@field:SerializedName("id")
-	val id: String = "",
+	val id: Int = 0,
 
 	@field:SerializedName("title")
 	val title: String = "",

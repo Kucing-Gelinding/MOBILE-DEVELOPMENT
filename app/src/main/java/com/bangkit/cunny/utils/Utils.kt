@@ -1,4 +1,4 @@
-package com.bangkit.cunny.ui.practice
+package com.bangkit.cunny.utils
 
 import android.content.ContentValues
 import android.content.Context

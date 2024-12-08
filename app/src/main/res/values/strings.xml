@@ -154,4 +154,12 @@
     <string name="title_signin_page">Welcome to Cunny!</string>
     <string name="title_profile">Profile</string>
     <string name="title_setting">Settings</string>
+    <string name="materials">Materials</string>
+    <string name="all_cunny_materials">All of Cunny\'s Materials</string>
+    <string name="Bookmark">Bookmarks</string>
+    <string name="your_bookmark">All of your bookmarks are here.</string>
+    <string name="your_bookmarks">Your Bookmarks</string>
+    <string name="what_do_you_want_to_learn_today">What do you want to learn today?</string>
+    <string name="hello_name">Hello, Eleonore</string>
+    <string name="recent_materials">Recent Materials</string>
 </resources>
