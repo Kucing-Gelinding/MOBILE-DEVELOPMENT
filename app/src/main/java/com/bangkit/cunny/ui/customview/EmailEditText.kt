@@ -16,7 +16,7 @@ class EmailEditText @JvmOverloads constructor(
 ) : AppCompatEditText(context, attrs) {
 
     private val emailIcon: Drawable = requireNotNull(
-        ContextCompat.getDrawable(context, R.drawable.ic_email)
+        ContextCompat.getDrawable(context, R.drawable.ic_email_dark)
     ) { "Email icon drawable not found!" }
 
     private val iconPadding = resources.getDimensionPixelSize(R.dimen.icon_padding)

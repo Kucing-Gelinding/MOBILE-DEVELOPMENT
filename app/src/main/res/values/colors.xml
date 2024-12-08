@@ -21,7 +21,9 @@
 
     <!--    additional color-->
     <color name="hint_color">#A0A0A0</color>
+    <color name="danger_color">#FF0000</color>
     <color name="edittext_background_color">#FFFFFF</color> <!-- White -->
     <color name="edittext_stroke_color">#D3D3D3</color> <!-- Light Gray -->
+
     <!--    additional color-->
 </resources>

@@ -18,7 +18,13 @@
 
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.bangkit.cunny.ui.favorite.FavoriteFragment"
+        android:name="com.bangkit.cunny.ui.favorite.BookmarkFragment"
         android:label="@string/title_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_bookmark" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.bangkit.cunny.ui.setting.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

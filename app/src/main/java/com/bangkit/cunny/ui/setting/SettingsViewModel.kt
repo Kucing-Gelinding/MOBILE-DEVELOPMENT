@@ -1,13 +1,13 @@
-package com.bangkit.cunny.ui.favorite
+package com.bangkit.cunny.ui.setting
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class FavoriteViewModel : ViewModel() {
+class SettingsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is setting Fragment"
     }
     val text: LiveData<String> = _text
 }

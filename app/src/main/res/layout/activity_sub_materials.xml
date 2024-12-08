@@ -49,6 +49,21 @@
                 tools:src="@drawable/dummy_image" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <CheckBox
+            android:id="@+id/btn_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bookmark_shape"
+            android:button="@drawable/bookmark_selector"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:theme="@style/MyCheckBox"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

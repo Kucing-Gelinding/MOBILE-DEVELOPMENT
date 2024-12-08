@@ -25,7 +25,7 @@ class PasswordEditText @JvmOverloads constructor(
         ContextCompat.getDrawable(context, R.drawable.ic_close)
     ) { "Eye closed icon drawable not found!" }
     private val personIcon: Drawable = requireNotNull(
-        ContextCompat.getDrawable(context, R.drawable.ic_password)
+        ContextCompat.getDrawable(context, R.drawable.ic_password_dark)
     ) { "Person icon drawable not found!" }
 
     private val iconPadding = resources.getDimensionPixelSize(R.dimen.icon_padding)

@@ -69,6 +69,7 @@ dependencies {
     // Firebase Auth
     implementation ("com.google.firebase:firebase-auth-ktx:23.1.0")
     implementation ("com.google.android.gms:play-services-auth:21.2.0")
+
     // Credential Manager
     implementation ("androidx.credentials:credentials:1.3.0")
     implementation ("androidx.credentials:credentials-play-services-auth:1.3.0")
@@ -78,4 +79,8 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     kapt ("com.github.bumptech.glide:compiler:4.14.2")
 
+    //room & database
+    implementation (libs.androidx.room.runtime)
+    kapt (libs.room.compiler)
+    implementation (libs.androidx.datastore.preferences)
 }

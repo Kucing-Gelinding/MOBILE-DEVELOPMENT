@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
+    android:background="@color/primaryColor"
     tools:context=".ui.home.HomeFragment">
 
     <!-- Main Content -->
@@ -14,28 +14,57 @@
         android:layout_height="match_parent"
         android:background="@color/primaryColor">
 
-        <!-- Toolbar -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/primaryColor"
-            android:title="Home"
-            android:titleTextColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/topText"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@id/topText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="16dp"
-            android:text="What do you want to learn today?"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileIcon"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/profileIcon">
+
+            <TextView
+                android:id="@+id/firstText"
+                android:layout_width="134dp"
+                android:layout_height="34dp"
+                android:text="Hello, Eleonore"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/secondText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/secondText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="What do you want to learn today?"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.RoundedFull"
+            app:strokeColor="@color/tertiaryColor"
+            app:strokeWidth="2dp" />
 
         <com.google.android.material.search.SearchBar
             android:id="@+id/searchBar"
@@ -43,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/searchbar_hint"
             app:layout_constraintEnd_toEndOf="parent"
@@ -158,14 +187,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Navigation Drawer -->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="250dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/home_menu"
-        android:background="@color/primaryColor"
-        app:itemTextColor="@android:color/white" />
 
-</androidx.drawerlayout.widget.DrawerLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

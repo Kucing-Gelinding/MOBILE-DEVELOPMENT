@@ -152,4 +152,6 @@
     <string name="start_practice">Start Practice</string>
     <string name="your_web_client_id">577654610975-nr2stng7ic45ke6egh428qjd0d3001ro.apps.googleusercontent.com</string>
     <string name="title_signin_page">Welcome to Cunny!</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_setting">Settings</string>
 </resources>

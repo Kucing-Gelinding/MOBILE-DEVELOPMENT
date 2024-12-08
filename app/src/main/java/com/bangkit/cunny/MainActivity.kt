@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_materials, R.id.navigation_favorite
+                R.id.navigation_home, R.id.navigation_materials, R.id.navigation_favorite, R.id.navigation_settings
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.navigation_home ||
                 destination.id == R.id.navigation_materials ||
-                destination.id == R.id.navigation_favorite) {
+                destination.id == R.id.navigation_favorite ||
+                destination.id == R.id.navigation_settings) {
                 navView.visibility = View.VISIBLE
             } else {
                 navView.visibility = View.GONE
@@ -50,13 +51,13 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-/*      auth = Firebase.auth
-        val firebaseUser = auth.currentUser
-        if (firebaseUser == null) {
-            // Not signed in, launch the Login activity
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-            return
-        }*/
+//        auth = Firebase.auth
+//        val firebaseUser = auth.currentUser
+//        if (firebaseUser == null) {
+//            // Not signed in, launch the Login activity
+//            startActivity(Intent(this, LoginActivity::class.java))
+//            finish()
+//            return
+//        }
     }
 }

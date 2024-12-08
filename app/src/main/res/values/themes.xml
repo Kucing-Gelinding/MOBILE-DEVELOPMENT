@@ -29,9 +29,24 @@
         <item name="android:background">@drawable/cardview_material</item> <!-- Tetap menggunakan drawable -->
     </style>
 
+    <style name="Background_card_secondary">
+        <item name="android:background">@drawable/cardview_material_secondary</item> <!-- Tetap menggunakan drawable -->
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.RoundedFull" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="roundImage">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
         <item name="color">@color/white</item>
+    </style>
+
+    <style name="MyCheckBox"
+        parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorControlNormal">@color/tertiaryColor</item>
+        <item name="colorControlActivated">@color/tertiaryColor</item>
     </style>
 </resources>

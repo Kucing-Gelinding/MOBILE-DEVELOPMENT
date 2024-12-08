@@ -15,7 +15,7 @@ class NameEditText @JvmOverloads constructor(
 ) : AppCompatEditText(context, attrs) {
 
     private val nameIcon: Drawable = requireNotNull(
-        ContextCompat.getDrawable(context, R.drawable.ic_person)
+        ContextCompat.getDrawable(context, R.drawable.ic_person_dark)
     ) { "Name icon drawable not found!" }
 
     private val iconPadding = resources.getDimensionPixelSize(R.dimen.icon_padding)
