@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.cunny.data.database.BookmarkRoomDatabase
 import com.bangkit.cunny.data.model.LearningMaterialModel
+import com.bangkit.cunny.data.repository.HomeRepository
 import com.bangkit.cunny.databinding.FragmentHomeBinding
 import com.bangkit.cunny.helper.BookmarkAdapter
-import com.bangkit.cunny.ui.bookmark.BookmarkViewModel
 import com.bangkit.cunny.ui.profile.ProfileActivity
 import com.bangkit.cunny.ui.sub_materials.SubMaterialsActivity
 
@@ -29,17 +28,19 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val viewModel = ViewModelProvider(this)[BookmarkViewModel::class.java]
-        val adapter = BookmarkAdapter() // Buat adapter untuk menampilkan data
+        // Buat instance database dan repository
+        val database = BookmarkRoomDatabase.getDatabase(requireContext())
+        val repository = HomeRepository(database.bookmarkDao())
+        val factory = HomeViewModelFactory(repository)
 
-        // Set an onClick listener for a button (you can change it to any view component)
+        // Inisialisasi ViewModel dengan Factory
+        val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        val adapter = BookmarkAdapter()
+
         binding.profileIcon.setOnClickListener {
-            // Intent to open ProfileActivity
-            val intent = Intent(activity, ProfileActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(activity, ProfileActivity::class.java))
         }
 
-        // Observe isLoading LiveData to show/hide ProgressBar
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
@@ -47,27 +48,23 @@ class HomeFragment : Fragment() {
         binding.rvBookmark.layoutManager = LinearLayoutManager(requireContext())
         binding.rvBookmark.adapter = adapter
 
-        // Observe bookmarks data and update UI accordingly
         viewModel.bookmarks.observe(viewLifecycleOwner) { bookmarks ->
             if (bookmarks.isEmpty()) {
-                // Show the emptyImage when there are no bookmarks
                 binding.emptyImage.visibility = View.VISIBLE
                 binding.rvBookmark.visibility = View.GONE
             } else {
-                // Hide the emptyImage and show the RecyclerView when bookmarks are available
                 binding.emptyImage.visibility = View.GONE
                 binding.rvBookmark.visibility = View.VISIBLE
                 adapter.submitList(bookmarks)
             }
         }
 
-        // Tambahkan callback untuk klik item
         adapter.setOnItemClickCallback { bookmark ->
             val learningMaterial = LearningMaterialModel(
                 id = bookmark.id,
                 title = bookmark.title,
                 description = bookmark.description,
-                subMaterial = bookmark.subMaterials, // Add relevant data or empty
+                subMaterial = bookmark.subMaterials,
                 learningImagePath = bookmark.learningImagePath
             )
             val intent = Intent(requireContext(), SubMaterialsActivity::class.java).apply {

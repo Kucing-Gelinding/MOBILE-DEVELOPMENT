@@ -162,8 +162,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/emptyImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="230dp"
+            android:layout_height="210dp"
             android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/empty"

@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.cunny.data.database.BookmarkRoomDatabase
 import com.bangkit.cunny.data.model.LearningMaterialModel
+import com.bangkit.cunny.data.repository.BookmarkRepository
 import com.bangkit.cunny.databinding.FragmentBookmarkBinding
 import com.bangkit.cunny.helper.BookmarkAdapter
 import com.bangkit.cunny.ui.sub_materials.SubMaterialsActivity
@@ -20,12 +20,6 @@ class BookmarkFragment : Fragment() {
     private var _binding: FragmentBookmarkBinding? = null
     private val binding get() = _binding!!
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> get() = _isLoading
-
-    private val _error = MutableLiveData<String?>()
-    val error: LiveData<String?> get() = _error
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,25 +27,29 @@ class BookmarkFragment : Fragment() {
     ): View {
         _binding = FragmentBookmarkBinding.inflate(inflater, container, false)
 
-        val viewModel = ViewModelProvider(this)[BookmarkViewModel::class.java]
-        val adapter = BookmarkAdapter() // Buat adapter untuk menampilkan data
+        // Inisialisasi database dan repository
+        val database = BookmarkRoomDatabase.getDatabase(requireContext())
+        val repository = BookmarkRepository(database.bookmarkDao())
+        val factory = BookmarkViewModelFactory(repository)
+
+        // Inisialisasi ViewModel dengan Factory
+        val viewModel = ViewModelProvider(this, factory)[BookmarkViewModel::class.java]
+        val adapter = BookmarkAdapter()
 
         binding.rvBookmark.layoutManager = LinearLayoutManager(requireContext())
         binding.rvBookmark.adapter = adapter
 
-        // Observe isLoading LiveData to show/hide ProgressBar
+        // Observe isLoading LiveData untuk ProgressBar
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
-        // Observe bookmarks data and update UI accordingly
+        // Observe bookmarks LiveData untuk memperbarui UI
         viewModel.bookmarks.observe(viewLifecycleOwner) { bookmarks ->
             if (bookmarks.isEmpty()) {
-                // Show the emptyImage when there are no bookmarks
                 binding.emptyImage.visibility = View.VISIBLE
                 binding.rvBookmark.visibility = View.GONE
             } else {
-                // Hide the emptyImage and show the RecyclerView when bookmarks are available
                 binding.emptyImage.visibility = View.GONE
                 binding.rvBookmark.visibility = View.VISIBLE
                 adapter.submitList(bookmarks)
@@ -64,7 +62,7 @@ class BookmarkFragment : Fragment() {
                 id = bookmark.id,
                 title = bookmark.title,
                 description = bookmark.description,
-                subMaterial = bookmark.subMaterials, // Add relevant data or empty
+                subMaterial = bookmark.subMaterials,
                 learningImagePath = bookmark.learningImagePath
             )
             val intent = Intent(requireContext(), SubMaterialsActivity::class.java).apply {
@@ -75,7 +73,6 @@ class BookmarkFragment : Fragment() {
 
         return binding.root
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
