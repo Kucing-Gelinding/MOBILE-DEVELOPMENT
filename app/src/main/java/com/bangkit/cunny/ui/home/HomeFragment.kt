@@ -13,6 +13,9 @@ import com.bangkit.cunny.data.model.LearningMaterialModel
 import com.bangkit.cunny.data.repository.HomeRepository
 import com.bangkit.cunny.databinding.FragmentHomeBinding
 import com.bangkit.cunny.helper.BookmarkAdapter
+import com.bangkit.cunny.helper.PreferencesHelper
+import com.bangkit.cunny.helper.RecentMaterialsAdapter
+import com.bangkit.cunny.ui.materials_detail.DetailActivity
 import com.bangkit.cunny.ui.profile.ProfileActivity
 import com.bangkit.cunny.ui.sub_materials.SubMaterialsActivity
 
@@ -27,6 +30,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        // Preference recent
+        val preferencesHelper = PreferencesHelper(requireContext())
+        val recentMaterials = preferencesHelper.getRecentMaterials()
 
         // Buat instance database dan repository
         val database = BookmarkRoomDatabase.getDatabase(requireContext())
@@ -71,6 +78,25 @@ class HomeFragment : Fragment() {
                 putExtra("SubMaterial", learningMaterial)
             }
             startActivity(intent)
+        }
+
+        if (recentMaterials.isNotEmpty()) {
+            val recentAdapter = RecentMaterialsAdapter()
+            binding.rvRecent.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            binding.rvRecent.adapter = recentAdapter
+            binding.rvRecent.visibility = View.VISIBLE
+
+            // Kirim list data ke adapter
+            recentAdapter.setMaterials(recentMaterials)
+
+            recentAdapter.setOnItemClickCallback { material ->
+                val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+                    putExtra("MaterialDetail", material)
+                }
+                startActivity(intent)
+            }
+        } else {
+            binding.rvRecent.visibility = View.GONE // Sembunyikan jika kosong
         }
 
         return binding.root

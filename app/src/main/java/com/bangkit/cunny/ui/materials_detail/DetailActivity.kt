@@ -9,33 +9,38 @@ import com.bangkit.cunny.data.model.SubMaterialModel
 import com.bangkit.cunny.databinding.ActivityDetailBinding
 import com.bangkit.cunny.ui.practice.PracticeActivity
 import com.bumptech.glide.Glide
+import com.bangkit.cunny.helper.PreferencesHelper
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var preferencesHelper: PreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inisialisasi View Binding
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()
+        preferencesHelper = PreferencesHelper(this)
 
         val myObject = intent.getParcelableExtra<SubMaterialModel>("MaterialDetail")
         myObject?.let {
-            Glide.with(this@DetailActivity)
-                .load(myObject.learningImagePath)
+            // Tambahkan material ke list recent di SharedPreferences
+            preferencesHelper.saveRecentMaterial(it)
+
+            // Tampilkan data di UI
+            Glide.with(this)
+                .load(it.learningImagePath)
                 .into(binding.tvImg)
-            binding.tvName.text = myObject.subMaterial
-            binding.tvDescription.text = myObject.subBodyMaterial
+            binding.tvName.text = it.subMaterial
+            binding.tvDescription.text = it.subBodyMaterial
         }
 
         binding.buttonStartPractice.setOnClickListener {
             val intent = Intent(this, PracticeActivity::class.java)
-            // Tambahkan data jika diperlukan untuk diteruskan ke PracticeActivity
             startActivity(intent)
         }
     }
 }
+
