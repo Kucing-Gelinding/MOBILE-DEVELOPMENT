@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Cunny"
         tools:targetApi="31">
         <activity
+            android:name=".ui.prediction.PredictionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.profile.ProfileActivity"
             android:exported="false" />
         <activity
