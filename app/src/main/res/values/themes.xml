@@ -38,6 +38,11 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="prediction_card" parent="">
+        <item name="android:radius">50dp</item>
+
+    </style>
+
     <style name="roundImage">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>

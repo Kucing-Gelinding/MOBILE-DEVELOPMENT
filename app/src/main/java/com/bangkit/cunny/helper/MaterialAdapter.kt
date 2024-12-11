@@ -14,6 +14,9 @@ import com.bumptech.glide.Glide
 class MaterialAdapter(private val listMaterial: ArrayList<LearningMaterialModel>) : RecyclerView.Adapter<MaterialAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
+    val materials: List<LearningMaterialModel>
+        get() = listMaterial
+
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
@@ -44,9 +47,7 @@ class MaterialAdapter(private val listMaterial: ArrayList<LearningMaterialModel>
         Glide.with(holder.itemView.context)
             .load(material.learningImagePath)
             .into(holder.imgPhoto)
-        //holder.imgPhoto.setImageResource(R.drawable.ic_place_holder)
 
-        // Optional: Add click listener for the entire item (if you want to keep that functionality)
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(material, holder.adapterPosition)
         }

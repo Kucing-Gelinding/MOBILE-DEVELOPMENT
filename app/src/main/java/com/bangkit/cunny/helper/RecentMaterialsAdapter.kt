@@ -14,7 +14,17 @@ class RecentMaterialsAdapter : RecyclerView.Adapter<RecentMaterialsAdapter.ViewH
 
     fun setMaterials(data: List<SubMaterialModel>) {
         materials.clear()
-        materials.addAll(data)
+        if (data.isEmpty()) {
+            // Tambahkan placeholder jika data kosong
+            materials.add(
+                SubMaterialModel(
+                    subMaterial = "Kamu belum membaca material apapun",
+                    learningImagePath = "android.resource://com.bangkit.cunny/drawable/empty" // Path ke drawable
+                )
+            )
+        } else {
+            materials.addAll(data)
+        }
         notifyDataSetChanged()
     }
 
@@ -30,7 +40,11 @@ class RecentMaterialsAdapter : RecyclerView.Adapter<RecentMaterialsAdapter.ViewH
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val material = materials[position]
         holder.bind(material)
-        holder.itemView.setOnClickListener { onItemClickCallback?.invoke(material) }
+        if (material.subMaterial != "Kamu belum membaca material apapun") {
+            holder.itemView.setOnClickListener { onItemClickCallback?.invoke(material) }
+        } else {
+            holder.itemView.setOnClickListener(null) // Nonaktifkan klik untuk placeholder
+        }
     }
 
     override fun getItemCount() = materials.size
@@ -38,7 +52,9 @@ class RecentMaterialsAdapter : RecyclerView.Adapter<RecentMaterialsAdapter.ViewH
     inner class ViewHolder(private val binding: RecentListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(material: SubMaterialModel) {
             binding.tvTitleCard.text = material.subMaterial
-            Glide.with(binding.root.context).load(material.learningImagePath).into(binding.tvImgCard)
+            Glide.with(binding.root.context)
+                .load(material.learningImagePath)
+                .into(binding.tvImgCard)
         }
     }
 }

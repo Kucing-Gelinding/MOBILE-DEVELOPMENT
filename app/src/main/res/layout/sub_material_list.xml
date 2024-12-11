@@ -8,8 +8,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginTop="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp"
     card_view:cardCornerRadius="15dp"
     card_view:cardElevation="4dp">
@@ -27,6 +25,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
+            android:src="@drawable/image_placeholder"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
