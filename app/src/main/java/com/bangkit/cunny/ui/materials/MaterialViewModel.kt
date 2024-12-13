@@ -21,12 +21,36 @@ class MaterialViewModel(private val repository: MaterialsRepository) : ViewModel
     val error: LiveData<String?> get() = _error
 
     fun fetchMaterials() {
+        if (_materials.value != null) {
+            return // Jika data sudah ada, jangan fetch ulang
+        }
         viewModelScope.launch {
             _isLoading.value = true
             try {
                 val response = repository.getMaterials()
                 if (response != null) {
                     _materials.value = response
+                } else {
+                    _error.value = "Materials not found"
+                }
+            } catch (e: Exception) {
+                _error.value = e.message ?: "An error occurred"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun searchMaterials(query: String) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = repository.getMaterials()
+                if (response != null) {
+                    val filteredMaterials = response.learningMaterials?.filter {
+                        it.title.contains(query, ignoreCase = true)
+                    }
+                    _materials.value = MaterialsResponse(filteredMaterials)
                 } else {
                     _error.value = "Materials not found"
                 }

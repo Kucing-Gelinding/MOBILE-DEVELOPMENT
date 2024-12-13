@@ -84,7 +84,6 @@ class HomeFragment : Fragment() {
             val recentAdapter = RecentMaterialsAdapter()
             binding.rvRecent.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             binding.rvRecent.adapter = recentAdapter
-            binding.rvRecent.visibility = View.VISIBLE
 
             // Kirim list data ke adapter
             recentAdapter.setMaterials(recentMaterials)
@@ -96,7 +95,12 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
         } else {
-            binding.rvRecent.visibility = View.GONE // Sembunyikan jika kosong
+            val recentAdapter = RecentMaterialsAdapter()
+            binding.rvRecent.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            binding.rvRecent.adapter = recentAdapter
+
+            // Kirim placeholder ke adapter
+            recentAdapter.setMaterials(emptyList())
         }
 
         return binding.root

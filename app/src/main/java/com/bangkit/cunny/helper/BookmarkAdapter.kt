@@ -53,7 +53,7 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>
             // Memuat gambar menggunakan Glide
             Glide.with(itemView.context)
                 .load(bookmark.learningImagePath)
-                .placeholder(R.drawable.dummy_image1) // Menambahkan placeholder jika gambar tidak tersedia
+                .placeholder(R.drawable.image_placeholder) // Menambahkan placeholder jika gambar tidak tersedia
                 .into(imageView)
         }
     }

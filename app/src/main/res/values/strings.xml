@@ -18,7 +18,7 @@
     <string name="enter_password">Please enter your Password.</string>
     <string name="password_8digit">Password must be 8 characters.</string>
     <string name="continueBtn">Continue</string>
-    <string name="practice">Aha, finally you are here, you can scan any fruit with the camera down below, after that, we will explain it to you!</string>
+    <string name="practice">Aha, akhirnya kamu sampai juga! Kamu bisa scan buah apa saja pakai kamera atau gallery di bawah ini, nanti kita jelasin.</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -62,11 +62,11 @@
     </string-array>
 
     <integer-array name="data_photo">
-        <item>@drawable/dummy_image1</item>
-        <item>@drawable/dummy_image2</item>
-        <item>@drawable/dummy_image3</item>
-        <item>@drawable/dummy_image4</item>
-        <item>@drawable/dummy_image5</item>
+        <item>@drawable/image_placeholder</item>
+        <item>@drawable/image_placeholder</item>
+        <item>@drawable/image_placeholder</item>
+        <item>@drawable/image_placeholder</item>
+        <item>@drawable/image_placeholder</item>
     </integer-array>
 
     <string-array name="materiList">
@@ -162,4 +162,10 @@
     <string name="what_do_you_want_to_learn_today">What do you want to learn today?</string>
     <string name="hello_name">Hello, Eleonore</string>
     <string name="recent_materials">Recent Materials</string>
+    <string name="Judul">title</string>
+    <string name="registernnow">Register Now</string>
+    <string name="loginnow">Login Now</string>
+    <string name="prediction_text">Gambar diatas menunjukkan bagaimana komputer belajar mengenali hewan seperti kucing dan anjing menggunakan AI. Komputer dilatih dengan gambar-gambar berlabel, lalu diuji dengan gambar baru untuk menebak jenis hewannya. Proses ini mirip dengan anak kecil yang belajar mengenali hewan dari gambar. Begitu pula proses yang telah kamu lakukan sebelumnya.</string>
+    <string name="Back">Back</string>
+    <string name="hasil">Hasil :</string>
 </resources>

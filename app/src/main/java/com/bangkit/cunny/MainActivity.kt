@@ -50,14 +50,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-//        auth = Firebase.auth
-//        val firebaseUser = auth.currentUser
-//        if (firebaseUser == null) {
-//            // Not signed in, launch the Login activity
-//            startActivity(Intent(this, LoginActivity::class.java))
-//            finish()
-//            return
-//        }
+        auth = Firebase.auth
+        val firebaseUser = auth.currentUser
+        if (firebaseUser == null) {
+            // Not signed in, launch the Login activity
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
     }
 }

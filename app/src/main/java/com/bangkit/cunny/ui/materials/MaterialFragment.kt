@@ -55,7 +55,25 @@ class MaterialFragment : Fragment() {
         // Fetch data from API
         materialViewModel.fetchMaterials()
 
+        setupSearchView()
+
         return binding.root
+    }
+
+    private fun setupSearchView() {
+        binding.searchView.setupWithSearchBar(binding.searchBar)
+
+        binding.searchView.editText?.setOnEditorActionListener { textView, actionId, event ->
+            val query = binding.searchView.text.toString()
+            performSearch(query)
+            binding.searchView.hide()
+            false
+        }
+
+    }
+
+    private fun performSearch(query: String) {
+        materialViewModel.searchMaterials(query)
     }
 
     private fun observeViewModel() {
@@ -84,7 +102,6 @@ class MaterialFragment : Fragment() {
 
     private fun updateMaterialList(materials: List<LearningMaterial>) {
 
-
         val material: MutableList<LearningMaterialModel> = ArrayList()
         materials.forEach { data ->
             val subMaterial: MutableList<SubMaterialModel> = ArrayList()
@@ -96,6 +113,7 @@ class MaterialFragment : Fragment() {
 
         materialAdapter.updateData(ArrayList(material))
     }
+
 
 
     override fun onDestroyView() {

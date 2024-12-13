@@ -180,11 +180,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:alpha="100" />
 
+            <TextView
+                android:id="@+id/loginNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:alpha="0"
+                android:text="@string/loginnow"
+                app:layout_constraintEnd_toEndOf="@+id/signInButton"
+                app:layout_constraintStart_toStartOf="@+id/signInButton"
+                app:layout_constraintTop_toBottomOf="@+id/signInButton"
+                tools:alpha="100" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

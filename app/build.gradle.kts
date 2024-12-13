@@ -67,17 +67,17 @@ dependencies {
     implementation (libs.logging.interceptor)
 
     // Firebase Auth
-    implementation ("com.google.firebase:firebase-auth-ktx:23.1.0")
-    implementation ("com.google.android.gms:play-services-auth:21.2.0")
+    implementation (libs.firebase.auth.ktx)
+    implementation (libs.play.services.auth)
 
     // Credential Manager
-    implementation ("androidx.credentials:credentials:1.3.0")
-    implementation ("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation (libs.androidx.credentials)
+    implementation (libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
 
     //glide
-    implementation ("com.github.bumptech.glide:glide:4.14.2")
-    kapt ("com.github.bumptech.glide:compiler:4.14.2")
+    implementation (libs.glide)
+    kapt (libs.compiler)
 
     //room & database
     implementation (libs.androidx.room.runtime)

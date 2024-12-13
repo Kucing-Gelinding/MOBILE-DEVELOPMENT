@@ -2,6 +2,7 @@ package com.bangkit.cunny.ui.sub_materials
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +26,7 @@ class SubMaterialsActivity : AppCompatActivity() {
     private lateinit var materialViewModel: MaterialViewModel
     private val subMaterialAdapter = SubMaterialAdapter(ArrayList())
     private lateinit var bookmarkDao: BookmarkDao
+    private var isInitializing = false // Flag untuk mencegah listener saat inisialisasi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +38,15 @@ class SubMaterialsActivity : AppCompatActivity() {
         val myObject = intent.getParcelableExtra<LearningMaterialModel>("SubMaterial")
 
         myObject?.let {
+            binding.tvTitle.text = it.title
             Glide.with(this@SubMaterialsActivity)
                 .load(myObject.learningImagePath)
                 .into(binding.tvImg)
             updateMaterialList(myObject.subMaterial)
+        }
+
+        binding.backButton.setOnClickListener {
+            finish()
         }
 
         // Inisialisasi ViewModel
@@ -49,7 +56,6 @@ class SubMaterialsActivity : AppCompatActivity() {
         // Setup RecyclerView
         binding.rvChapterName.layoutManager = LinearLayoutManager(this)
         binding.rvChapterName.adapter = subMaterialAdapter
-
 
         // Set the item click callback
         subMaterialAdapter.setOnItemClickCallback(object : SubMaterialAdapter.OnItemClickCallback {
@@ -69,14 +75,30 @@ class SubMaterialsActivity : AppCompatActivity() {
             Thread {
                 val existingBookmark = bookmarkDao.getBookmarkById(it.id)
                 runOnUiThread {
+                    isInitializing = true // Atur flag ke true sebelum mengubah isChecked
                     binding.btnBookmark.isChecked = existingBookmark != null
+                    isInitializing = false // Reset flag setelah selesai
                 }
             }.start()
         }
 
-
         // Set listener untuk toggle bookmark
-        binding.btnBookmark.setOnCheckedChangeListener { _, isChecked ->
+        binding.btnBookmark.setOnCheckedChangeListener(bookmarkCheckedChangeListener)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val myObject = intent.getParcelableExtra<LearningMaterialModel>("SubMaterial")
+        myObject?.let {
+            updateMaterialList(it.subMaterial)
+        }
+    }
+
+    private val bookmarkCheckedChangeListener =
+        CompoundButton.OnCheckedChangeListener { _, isChecked ->
+            if (isInitializing) return@OnCheckedChangeListener // Abaikan perubahan selama inisialisasi
+
+            val myObject = intent.getParcelableExtra<LearningMaterialModel>("SubMaterial")
             myObject?.let {
                 val bookmark = BookmarkModel(
                     id = it.id,
@@ -100,8 +122,6 @@ class SubMaterialsActivity : AppCompatActivity() {
                 }
             }
         }
-
-    }
 
     private fun updateMaterialList(materials: List<SubMaterialModel>) {
         subMaterialAdapter.updateData(ArrayList(materials))

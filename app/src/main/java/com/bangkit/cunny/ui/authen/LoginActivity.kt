@@ -50,6 +50,13 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.registerNow.setOnClickListener {
+            // Intent ke MainActivity
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         // Initialize Firebase Auth
         auth = Firebase.auth
 
@@ -164,6 +171,8 @@ class LoginActivity : AppCompatActivity() {
         val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(100)
         val signInButton =
             ObjectAnimator.ofFloat(binding.signInButton, View.ALPHA, 1f).setDuration(100)
+        val registerNow =
+            ObjectAnimator.ofFloat(binding.registerNow, View.ALPHA, 1f).setDuration(100)
 
         AnimatorSet().apply {
             playSequentially(
@@ -174,7 +183,8 @@ class LoginActivity : AppCompatActivity() {
                 passwordTextView,
                 passwordEditTextLayout,
                 login,
-                signInButton
+                signInButton,
+                registerNow
             )
             startDelay = 100
         }.start()

@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
-            android:src="@drawable/dummy_image1"
+            android:src="@drawable/image_placeholder"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
