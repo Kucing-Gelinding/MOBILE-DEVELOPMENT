@@ -51,3 +51,8 @@ Before you begin, ensure you have the following installed:
    ```bash
    ./gradlew assembleDebug
    ```
+
+## Download
+```
+https://drive.google.com/file/d/1eNvL-7gVZsmBnWCWDZW7dOzhDycu6LoY/view?usp=drive_link
+```
